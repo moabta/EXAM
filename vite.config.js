@@ -2,21 +2,22 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import path from 'path';
 
-// https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: {
-      // Create an alias for the node_modules directory to make font imports work correctly
+      // حل مشكلة استيراد الخطوط
       '@fontsource': path.resolve(__dirname, 'node_modules/@fontsource')
     }
   },
-  // Configure static asset handling
+  base: "/exam/", // 🔹 أضف هذا لضبط المسار في GitHub Pages
   assetsInclude: ['**/*.woff', '**/*.woff2', '**/*.ttf'],
-  // Ensure proper serving of static files
+  build: {
+    outDir: 'dist', // تحديد مجلد الإخراج
+    assetsDir: 'assets', // وضع الملفات الثابتة داخل مجلد 'assets'
+  },
   server: {
     fs: {
-      // Allow serving files from one level up to the project root
       allow: ['..', 'node_modules']
     }
   }
